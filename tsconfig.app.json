@@ -22,6 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "rootDir": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]
     }
