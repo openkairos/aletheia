@@ -9,8 +9,5 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
 });
