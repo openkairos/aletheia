@@ -20,7 +20,7 @@ your PR follow these guidelines:
 
 ### PR guidelines
 
-- The title should follow [conventional commit style](https://www.conventionalcommits.org/en/v1.0.0/) (e.g.,
+- The title should follow [conventional commit style](https://github.com/openkairos/documentation/blob/main/docs/technical/conventional-commits.md) (e.g.,
   `feat(shipping): send email to customer on shipment`).
 - Fill out the PR template provided.
 - Ensure all CI checks pass before requesting a review.
