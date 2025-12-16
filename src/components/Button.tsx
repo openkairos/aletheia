@@ -5,8 +5,6 @@ interface ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button: React.FC<ButtonProps> = function ButtonComponent({ label, onClick }: ButtonProps): JSX.Element {
+export function ButtonComponent({ label, onClick }: ButtonProps): JSX.Element {
   return <button onClick={onClick}>{label}</button>;
-};
-
-export default Button;
+}
