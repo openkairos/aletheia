@@ -12,6 +12,8 @@ jobs:
   ci:
     name: CI
     runs-on: ubuntu-latest
+    container:
+      image: node:22
 
     steps:
       - name: Checkout code
