@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import App from './App.tsx';
+import App from '@/App';
 
 test('render App component', async () => {
   render(<App />);
