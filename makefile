@@ -4,6 +4,9 @@ IMAGE_NAME ?= aletheia-dev
 
 start: build bash
 
+stop:
+	docker rm -f $(IMAGE_NAME)-container
+
 build:
 	@if ! docker images | grep -q $(IMAGE_NAME); then \
 		docker build -t $(IMAGE_NAME) . ; \
