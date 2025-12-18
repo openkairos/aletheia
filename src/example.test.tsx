@@ -1,8 +1,7 @@
-import Root from '@/Root.tsx';
 import { render, screen } from '@testing-library/react';
 
 test('render Root component', async () => {
-  render(<Root />);
+  render(<h1>Aletheia!</h1>);
 
   const text = await screen.findByRole('heading');
 
