@@ -1,8 +1,8 @@
+import Root from '@/Root.tsx';
 import { render, screen } from '@testing-library/react';
-import App from '@/App';
 
-test('render App component', async () => {
-  render(<App />);
+test('render Root component', async () => {
+  render(<Root />);
 
   const text = await screen.findByRole('heading');
 
