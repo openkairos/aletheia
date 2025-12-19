@@ -11,11 +11,7 @@ describe('Auth context', () => {
   });
 
   it('should provide current provider value', () => {
-    const value: Auth = {
-      isAuthenticated: true,
-      login: () => {},
-      logout: () => {},
-    };
+    const value = {} as Auth;
 
     const { result } = renderHook(() => useContext(AuthContext), {
       wrapper: props => <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>,
