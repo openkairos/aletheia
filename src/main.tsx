@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/auth/contexts/AuthProvider/AuthProvider.tsx';
+import { AuthProvider } from '@/auth';
 import { router } from '@/routes.ts';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
