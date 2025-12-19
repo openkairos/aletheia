@@ -10,7 +10,7 @@ describe('use auth state hook', () => {
     storageMock.removeItem = vi.fn();
   });
 
-  it('should return un-authenticated before login', () => {
+  it('should return unauthenticated before login', () => {
     const { result } = renderHook(() => useAuthState(storageMock));
 
     expect(result.current.isAuthenticated).toBe(false);
