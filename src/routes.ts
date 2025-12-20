@@ -1,3 +1,4 @@
+import { RootRedirect } from '@/auth/login/RootRedirect/RootRedirect.tsx';
 import { createBrowserRouter, Outlet } from 'react-router';
 
 export const router = createBrowserRouter([
@@ -6,6 +7,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
+        Component: RootRedirect,
       },
     ],
   },
