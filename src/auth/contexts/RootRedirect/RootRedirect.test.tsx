@@ -1,5 +1,5 @@
 import type { AuthContext } from '@/auth';
-import { RootRedirect } from '@/auth/login/RootRedirect/RootRedirect.tsx';
+import { RootRedirect } from '@/auth/contexts/RootRedirect/RootRedirect.tsx';
 import { render } from '@testing-library/react';
 import { MemoryRouter, type Navigate } from 'react-router';
 
