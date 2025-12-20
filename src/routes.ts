@@ -1,4 +1,4 @@
-import { RootRedirect } from '@/auth';
+import { DashboardPage } from '@/pages/DashboardPage.tsx';
 import { LoginPage } from '@/pages/LoginPage.tsx';
 import { createBrowserRouter, Outlet } from 'react-router';
 
@@ -8,16 +8,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        Component: RootRedirect,
+        Component: DashboardPage,
       },
       {
         path: '/auth',
-        children: [
-          {
-            path: 'login',
-            Component: LoginPage,
-          },
-        ],
+        children: [{ path: 'login', Component: LoginPage }],
       },
     ],
   },
