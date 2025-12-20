@@ -1,12 +1,11 @@
 import AuthLayout from '@/pages/AuthLayout.tsx';
 import DashboardLayout from '@/pages/DashboardLayout.tsx';
 import Login from '@/pages/Login.tsx';
-import Root from '@/Root.tsx';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Outlet } from 'react-router';
 
 export const router = createBrowserRouter([
   {
-    Component: Root,
+    Component: Outlet,
     children: [
       {
         path: 'auth',
