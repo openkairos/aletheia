@@ -6,6 +6,8 @@ export interface Auth {
   logout: () => void;
 }
 
+export type AuthContext = () => Auth;
+
 export interface AuthProviderProps {
   children: ReactNode;
   useAuthState?: (storage?: Storage) => Auth;
