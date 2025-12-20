@@ -6,7 +6,7 @@ describe('AuthProvider', () => {
     const useAuthStateMock = vi.fn();
 
     render(
-      <AuthProvider useAuthState={useAuthStateMock}>
+      <AuthProvider useAuthStateHook={useAuthStateMock}>
         <h1>Test component</h1>
       </AuthProvider>,
     );
