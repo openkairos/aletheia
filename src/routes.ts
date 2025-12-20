@@ -1,4 +1,5 @@
 import { RootRedirect } from '@/auth';
+import { LoginPage } from '@/pages/LoginPage.tsx';
 import { createBrowserRouter, Outlet } from 'react-router';
 
 export const router = createBrowserRouter([
@@ -8,6 +9,15 @@ export const router = createBrowserRouter([
       {
         path: '/',
         Component: RootRedirect,
+      },
+      {
+        path: '/auth',
+        children: [
+          {
+            path: 'login',
+            Component: LoginPage,
+          },
+        ],
       },
     ],
   },
