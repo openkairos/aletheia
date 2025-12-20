@@ -10,5 +10,5 @@ export type AuthContext = () => Auth;
 
 export interface AuthProviderProps {
   children: ReactNode;
-  useAuthStateHook?: (storage?: Storage) => Auth;
+  useAuthState?: (storage?: Storage) => Auth;
 }
