@@ -1,4 +1,4 @@
-import logo from '@/assets/aletheia.png';
+import logo from '@/assets/aletheia.svg';
 import { Link } from 'react-router';
 
 export function LoginPage() {
