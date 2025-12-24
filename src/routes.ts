@@ -1,3 +1,4 @@
+import { DashboardLayout } from '@/pages/DashboardLayout.tsx';
 import { DashboardPage } from '@/pages/DashboardPage.tsx';
 import { LoginPage } from '@/pages/LoginPage.tsx';
 import { createBrowserRouter, Outlet } from 'react-router';
@@ -8,7 +9,13 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        Component: DashboardPage,
+        Component: DashboardLayout,
+        children: [
+          {
+            index: true,
+            Component: DashboardPage,
+          },
+        ],
       },
       {
         path: '/auth',
