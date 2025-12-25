@@ -59,4 +59,6 @@ jobs:
           file: ./docker/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag || github.event.release.tag_name }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tag || github.event.release.tag_name }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
