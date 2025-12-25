@@ -37,3 +37,20 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+  docker-ci:
+    name: Docker CI
+    runs-on: ubuntu-latest
+    needs: ci
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          push: false
+          tags: local/app:${{ github.sha }}
