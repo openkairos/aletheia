@@ -35,8 +35,22 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
+      - name: Run tests
+        run: npm test
+
       - name: Build project
         run: npm run build
 
-      - name: Run tests
-        run: npm test
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./docker/Dockerfile
+          push: false
+          tags: local/app:${{ github.sha }}

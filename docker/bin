@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+COMMAND=$1
+
+case $COMMAND in
+  "build")
+    TAG_NAME=${2:-latest}
+    docker build --no-cache -t aletheia:"$TAG_NAME" -f docker/Dockerfile .
+    ;;
+
+  "up")
+    TAG_NAME=${2:-latest}
+    docker run -it --rm --name aletheia-app -p 8080:80 aletheia:"$TAG_NAME"
+    ;;
+
+  *)
+    echo "Usage: $0 {build|up} [args]"
+    exit 1
+    ;;
+esac
