@@ -38,28 +38,6 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-{{ github.sha }}
-          path: dist/
-          overwrite: 'true'
-
-  docker-ci:
-    name: Docker CI
-    runs-on: ubuntu-latest
-    needs: ci
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-{{ github.sha }}
-          path: dist/
-
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
