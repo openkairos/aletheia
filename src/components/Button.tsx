@@ -29,7 +29,7 @@ export function Button({
 
   const variantClasses = {
     primary:
-      'text-white bg-[var(--color-primary-default)] hover:bg-[var(--color-primary-hover)] focus:ring-[#FF343A] active:bg-[var(--color-primary-active)] disabled:bg-[var(--color-primary-disabled)] ',
+      'text-white bg-[var(--color-brand)] hover:bg-[var(--color-brand-dark)] focus:ring-[#FF343A] active:bg-[var(--color-brand-darker)] disabled:bg-[var(--color-brand-muted)] ',
   };
 
   const buttonClasses = `${commonClasses} ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
