@@ -3,4 +3,9 @@
 
 @theme {
   --font-sans: 'Manrope', sans-serif;
+
+  --color-brand: #ff343a;
+  --color-brand-dark: #e62f34;
+  --color-brand-darker: #cc2a2e;
+  --color-brand-muted: #f5b5b7;
 }

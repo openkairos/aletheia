@@ -1,5 +1,6 @@
 import logo from '@/assets/aletheia.svg';
 import { Link } from 'react-router';
+import { Button } from '@/components/Button.tsx';
 
 export function LoginPage() {
   return (
@@ -14,12 +15,7 @@ export function LoginPage() {
               <h3 className='text-2xl font-bold my-3 mt-5'>Sign In</h3>
               <p className='text-sm font-medium'>Aletheia</p>
               <form className='mt-6'>
-                <button
-                  type='button'
-                  className='w-full bg-gray-800 hover:bg-black text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 hover:cursor-pointer'
-                >
-                  Sign In
-                </button>
+                <Button type='button'>Sign In</Button>
               </form>
             </div>
           </div>
