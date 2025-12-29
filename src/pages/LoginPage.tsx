@@ -1,6 +1,6 @@
 import logo from '@/assets/aletheia.svg';
 import { Link } from 'react-router';
-import { Button } from '@/components/Button.tsx';
+import { Button } from '@/components';
 
 export function LoginPage() {
   return (

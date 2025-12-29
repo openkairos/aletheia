@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button } from '@/components/Button.tsx';
+import { Button } from '@/components/Button/Button.tsx';
 
 test('it should render children and default type', () => {
   render(<Button>Click me</Button>);
