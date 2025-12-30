@@ -1,7 +1,7 @@
-import logoSrc from '@/assets/aletheia.svg';
 import userSrc from '@/assets/user-f-512.png';
 import { ProtectedRoute } from '@/auth';
 import { Link, Outlet } from 'react-router';
+import { Logo } from '@/components';
 
 export function DashboardLayout() {
   return (
@@ -12,7 +12,7 @@ export function DashboardLayout() {
           <aside className='fixed h-full top-0 left-20 w-60 bg-white start-18'>
             <div className='px-6 py-4 flex items-center'>
               <Link to='/' className='flex items-center gap-1 text-gray-500 hover:text-gray-800'>
-                <img className='w-10' alt='Aletheia' src={logoSrc} />
+                <Logo width={40} />
                 <h1 className='text-sm font-semibold'>Aletheia</h1>
               </Link>
             </div>

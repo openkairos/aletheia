@@ -1,6 +1,6 @@
 import logo from '@/assets/aletheia.svg';
+import { Button, Logo } from '@/components';
 import { Link } from 'react-router';
-import { Button } from '@/components';
 
 export function LoginPage() {
   return (
@@ -10,7 +10,7 @@ export function LoginPage() {
           <div className='flex h-screen items-center px-3 lg:justify-start justify-center'>
             <div className='max-w-md w-full mx-auto'>
               <Link to='/'>
-                <img src={logo} alt='Aletheia Logo' width='42' height='42' />
+                <Logo />
               </Link>
               <h3 className='text-2xl font-bold my-3 mt-5'>Sign In</h3>
               <p className='text-sm font-medium'>Aletheia</p>
