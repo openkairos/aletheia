@@ -1,5 +1,6 @@
-import { Button, Logo } from '@/components';
+import { Logo } from '@/components';
 import { Link } from 'react-router';
+import { Button } from '@/components/ui';
 
 export function LoginPage() {
   return (
@@ -14,7 +15,9 @@ export function LoginPage() {
               <h3 className='text-2xl font-bold my-3 mt-5'>Sign In</h3>
               <p className='text-sm font-medium'>Aletheia</p>
               <form className='mt-6'>
-                <Button type='button'>Sign In</Button>
+                <Button variant={'default'} size={'lg'}>
+                  Sign In
+                </Button>
               </form>
             </div>
           </div>
