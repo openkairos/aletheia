@@ -31,7 +31,7 @@ const commonClasses = `
 
 const variants = {
   primary: 'bg-brand text-white hover:bg-brand-dark',
-  secondary: 'bg-white text-secondary border border-secondary hover:bg-secondary-light',
+  secondary: 'bg-secondary text-white hover:bg-secondary-dark',
 };
 
 export function Button({ children, onClick, disabled, type = 'button', variant = 'primary' }: ButtonProps) {
