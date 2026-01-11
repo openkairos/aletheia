@@ -2,13 +2,13 @@
 @import 'tailwindcss';
 
 @theme {
-    --font-sans: 'Manrope', sans-serif;
+  --font-sans: 'Manrope', sans-serif;
 
-    --color-brand: #ff343a;
-    --color-brand-dark: #e62f34;
-    --color-brand-darker: #cc2a2e;
-    --color-brand-muted: #f5b5b7;
+  --color-brand: #ff343a;
+  --color-brand-dark: #e62f34;
+  --color-brand-darker: #cc2a2e;
+  --color-brand-muted: #f5b5b7;
 
-    --color-secondary: var(--color-gray-800);
-    --color-secondary-dark: var(--color-gray-900);
+  --color-secondary: var(--color-gray-800);
+  --color-secondary-dark: var(--color-gray-900);
 }
