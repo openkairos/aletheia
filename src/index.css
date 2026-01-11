@@ -8,4 +8,7 @@
   --color-brand-dark: #e62f34;
   --color-brand-darker: #cc2a2e;
   --color-brand-muted: #f5b5b7;
+
+  --color-secondary: var(--color-gray-700);
+  --color-secondary-light: var(--color-gray-50);
 }
