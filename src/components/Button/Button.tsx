@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 
 interface ButtonProps {
   disabled?: boolean;
   children?: ReactNode;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: 'button' | 'submit' | 'reset';
   variant?: 'primary' | 'secondary';
 }
@@ -34,9 +34,7 @@ const variants = {
   secondary: 'bg-white text-secondary border border-secondary hover:bg-secondary-light',
 };
 
-export function Button(props: ButtonProps) {
-  const { children, onClick, disabled, type = 'button', variant = 'primary' } = props;
-
+export function Button({ children, onClick, disabled, type = 'button', variant = 'primary' }: ButtonProps) {
   const classNames = `${commonClasses} ${variants[variant]}`;
 
   return (
