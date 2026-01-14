@@ -11,7 +11,7 @@
 
   --color-secondary-dark: var(--color-gray-900);
   --color-secondary: var(--color-gray-800);
-  --color-secondary-medium : var(--color-gray-700);
+  --color-secondary-medium: var(--color-gray-700);
   --color-secondary-light: var(--color-gray-500);
   --color-secondary-outline: var(--color-gray-200);
 }
