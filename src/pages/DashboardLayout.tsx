@@ -11,7 +11,7 @@ export function DashboardLayout() {
           <div className='bg-[#f4f7fb] w-20 h-full fixed start-0 z-10 border-[#e5e5e5]'>Mini-Sidebar</div>
           <aside className='fixed h-full top-0 left-20 w-60 bg-white start-18'>
             <div className='px-6 py-4 flex items-center'>
-              <Link to='/' className='flex items-center gap-1 text-gray-500 hover:text-gray-800'>
+              <Link to='/' className='flex items-center gap-1 text-secondary-light hover:text-secondary'>
                 <Logo width={40} height={40} />
                 <h1 className='text-sm font-semibold'>Aletheia</h1>
               </Link>
@@ -36,7 +36,7 @@ export function DashboardLayout() {
                       <div className='flex items-center gap-1 cursor-pointer'>
                         <span className='h-10 w-10 hover:text-primary rounded-full flex justify-center items-center group-hover/menu:bg-lightprimary group-hover/menu:text-primary'>
                           <img alt='User' height='35' width='35' className='rounded-full' src={userSrc} />
-                          <button className='cursor-pointer absolute top-12 right-0 bg-white border border-gray-300 rounded-md shadow-lg py-2 px-4 text-sm text-gray-700 hover:bg-gray-100'>
+                          <button className='cursor-pointer absolute top-12 right-0 bg-white border border-secondary-outline rounded-md shadow-lg py-2 px-4 text-sm text-secondary-medium hover:bg-secondary-outline transition-all duration-300'>
                             Logout
                           </button>
                         </span>
