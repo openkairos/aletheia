@@ -36,7 +36,7 @@ export function DashboardLayout() {
                       <div className='flex items-center gap-1 cursor-pointer'>
                         <span className='h-10 w-10 hover:text-primary rounded-full flex justify-center items-center group-hover/menu:bg-lightprimary group-hover/menu:text-primary'>
                           <img alt='User' height='35' width='35' className='rounded-full' src={userSrc} />
-                          <button className='cursor-pointer absolute top-12 right-0 bg-white border border-b-gray-300 rounded-md shadow-lg py-2 px-4 text-sm text-gray-700 hover:bg-gray-100'>
+                          <button className='cursor-pointer absolute top-12 right-0 bg-white border border-gray-300 rounded-md shadow-lg py-2 px-4 text-sm text-gray-700 hover:bg-gray-100'>
                             Logout
                           </button>
                         </span>
