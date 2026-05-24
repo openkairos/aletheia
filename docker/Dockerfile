@@ -1,8 +1,16 @@
-FROM node:24-alpine AS dev
+FROM node:24-bookworm-slim AS dev
 
-RUN apk add --no-cache git
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates git \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
+COPY package.json package-lock.json ./
+
+RUN npm ci \
+    && npx playwright install --with-deps chromium \
+    && npm cache clean --force
 
 FROM nginx:1-alpine AS prod
 
