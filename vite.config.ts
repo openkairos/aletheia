@@ -16,7 +16,7 @@ export default defineConfig(({ command }) => {
         '/kairos': {
           target: kairosBaseUrl ?? 'http://localhost',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/kairos/, ''),
+          rewrite: path => path.replace(/^\/kairos/, ''),
         },
       },
     },
