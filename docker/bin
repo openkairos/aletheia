@@ -10,7 +10,8 @@ case $COMMAND in
 
   "up")
     TAG_NAME=${2:-latest}
-    docker run -it --rm --name aletheia-app -p 8080:80 aletheia:"$TAG_NAME"
+    : "${KAIROS_BASE_URL:?KAIROS_BASE_URL is required}"
+    docker run -it --rm --name aletheia-app -p 8080:80 -e KAIROS_BASE_URL="$KAIROS_BASE_URL" aletheia:"$TAG_NAME"
     ;;
 
   *)

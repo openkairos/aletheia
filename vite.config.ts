@@ -4,6 +4,15 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      '/kairos': {
+        target: process.env.KAIROS_BASE_URL ?? 'http://localhost',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/kairos/, ''),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': '/src',
