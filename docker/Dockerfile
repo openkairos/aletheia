@@ -6,5 +6,6 @@ WORKDIR /app
 
 FROM nginx:1-alpine AS prod
 
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# The official nginx entrypoint renders /etc/nginx/templates/*.template with envsubst.
+COPY docker/nginx.conf.template /etc/nginx/templates/default.conf.template
 COPY dist/ /usr/share/nginx/html
