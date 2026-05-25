@@ -2,7 +2,8 @@ import { useLoginForm } from '@/auth';
 import { Button, Link, Logo, TextInput } from '@/components';
 
 export function LoginPage() {
-  const { email, password, canSubmit, handleEmailChange, handlePasswordChange, handleSubmit } = useLoginForm();
+  const { email, password, canSubmit, isSubmitting, handleEmailChange, handlePasswordChange, handleSubmit } =
+    useLoginForm();
 
   return (
     <div className='relative overflow-hidden h-screen'>
@@ -39,7 +40,7 @@ export function LoginPage() {
                 </div>
 
                 <Button type='submit' disabled={!canSubmit}>
-                  Sign In
+                  {isSubmitting ? 'Signing In...' : 'Sign In'}
                 </Button>
               </form>
             </div>
