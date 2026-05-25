@@ -56,16 +56,12 @@ src/
 - Context providers expose app state transitions, not backend workflows.
 - Route guards own route access behavior.
 
-## Incremental Adoption
-
-- New code should follow this convention.
-- Existing code should move only when touched by a focused slice.
-- Do not migrate the whole repo only to satisfy this document.
-- Prefer small, reviewable structural changes.
-
 ## Shared Architectural Areas
 
 - `src/components/` contains shared design-system components.
 - `src/config/` contains narrow cross-cutting configuration.
 - `src/pages/` contains route and page composition until a page naturally moves into a bounded context.
-- `docs/` contains project documentation and temporary direction notes.
+
+## Releases
+
+The release artifact is docker image containing the production build of the React app and is maintained in the [./docker/](./docker) directory.
