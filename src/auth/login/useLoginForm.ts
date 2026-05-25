@@ -23,7 +23,8 @@ const createDefaultLogin = () => {
 
 export function useLoginForm(dependencies: UseLoginFormDependencies = {}) {
   const [loginAction] = useState(() => dependencies.login ?? createDefaultLogin());
-  const navigate = dependencies.navigate ?? useNavigate();
+  const routerNavigate = useNavigate();
+  const navigate = dependencies.navigate ?? routerNavigate;
   const { authenticate } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

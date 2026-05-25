@@ -2,6 +2,7 @@ import { AuthContext } from '@/auth/auth-state/AuthContext.tsx';
 import type { Auth } from '@/auth/auth-state/authContext.types.ts';
 import { useLoginForm } from '@/auth/login/useLoginForm.ts';
 import type { LoginCredentials, LoginResult } from '@/auth/login/login.types.ts';
+import { MemoryRouter } from '@/components';
 import { act, renderHook } from '@testing-library/react';
 import type { ChangeEvent, ReactNode, SyntheticEvent } from 'react';
 
@@ -15,7 +16,11 @@ function createSubmitEvent() {
 
 function createWrapper(auth: Auth) {
   return function Wrapper({ children }: { children: ReactNode }) {
-    return <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>;
+    return (
+      <MemoryRouter>
+        <AuthContext.Provider value={auth}>{children}</AuthContext.Provider>
+      </MemoryRouter>
+    );
   };
 }
 
