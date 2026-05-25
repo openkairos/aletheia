@@ -13,19 +13,19 @@ Use this convention for application code:
 src/<bounded-context>/<capability>/
 ```
 
-Current structure:
+Example structure:
 
 ```txt
 src/
   auth/
-    auth-state/
-    login/
-    protected-route/
-    session/
-    index.ts
-  components/
-  config/
-  pages/
+    auth-state/       React auth state, provider, context, and useAuth
+    login/            Login form behavior, login use case, and login request adapter
+    protected-route/  Route protection behavior
+    session/          Persisted session model and storage adapter
+    index.ts          Public auth API
+  components/         Shared design-system components
+  config/             Cross-cutting configuration
+  pages/              Route and page composition
 ```
 
 ## Architecture Rules
@@ -39,19 +39,6 @@ src/
 - Each bounded context exposes its public API through `index.ts`.
 - `index.ts` files should use explicit exports, not `export *`.
 - Code outside a bounded context should import from that context public API, not from internal files.
-
-## Auth Reference
-
-`src/auth/` is the first reference implementation of this architecture:
-
-```txt
-src/auth/
-  auth-state/       React auth state, provider, context, and useAuth
-  login/            Login form behavior, login use case, and login request adapter
-  protected-route/  Route protection behavior
-  session/          Persisted session model and storage adapter
-  index.ts          Public auth API
-```
 
 ## Functional Programming Direction
 
@@ -76,16 +63,9 @@ src/auth/
 - Do not migrate the whole repo only to satisfy this document.
 - Prefer small, reviewable structural changes.
 
-## Known Exceptions
+## Shared Architectural Areas
 
 - `src/components/` contains shared design-system components.
 - `src/config/` contains narrow cross-cutting configuration.
 - `src/pages/` contains route and page composition until a page naturally moves into a bounded context.
 - `docs/` contains project documentation and temporary direction notes.
-
-## Future Considerations
-
-- BFF-managed `HttpOnly`, `Secure`, `SameSite` cookie auth remains the target architecture.
-- Current SPA token storage is a temporary compromise.
-- Login error presentation is deferred until the app chooses form errors, toast notifications, or another pattern.
-- Token expiry and refresh behavior are deferred until the backend contract includes the needed details.
