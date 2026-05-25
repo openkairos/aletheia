@@ -1,7 +1,7 @@
 import { AuthContext } from '@/auth/contexts/AuthContext/AuthContext.tsx';
+import type { Auth } from '@/auth/contexts/AuthContext/authContext.types.ts';
 import { useLoginForm } from '@/auth/login/useLoginForm.ts';
 import type { LoginCredentials, LoginResult } from '@/auth/login/login.types.ts';
-import type { Auth } from '@/auth/types.ts';
 import { act, renderHook } from '@testing-library/react';
 import type { ChangeEvent, ReactNode, SyntheticEvent } from 'react';
 

@@ -1,5 +1,5 @@
 import { AuthContext } from '@/auth/contexts/AuthContext/AuthContext.tsx';
-import type { Auth } from '@/auth/types.ts';
+import type { Auth } from '@/auth/contexts/AuthContext/authContext.types.ts';
 import { useContext } from 'react';
 
 export function useAuth(): Auth {

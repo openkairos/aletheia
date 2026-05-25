@@ -1,5 +1,5 @@
 import { AuthContext } from '@/auth/contexts/AuthContext/AuthContext.tsx';
-import type { Auth } from '@/auth/types.ts';
+import type { Auth } from '@/auth/contexts/AuthContext/authContext.types.ts';
 import { renderHook } from '@testing-library/react';
 import { useContext } from 'react';
 

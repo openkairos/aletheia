@@ -1,48 +1,70 @@
 import { useAuthState } from '@/auth/contexts/AuthProvider/useAuthState.tsx';
+import type { Session } from '@/auth/session/session.types.ts';
+import type { SessionStore } from '@/auth/session/sessionStore.types.ts';
 import { act, renderHook } from '@testing-library/react';
 
 describe('use auth state hook', () => {
-  const storageMock = {} as unknown as Storage;
+  const session: Session = {
+    user: {
+      id: '6a12eb9ab0b954cf6a367f92',
+      username: 'admin',
+      email: 'admin@example.com',
+      roles: ['ROLE_SUPER_ADMIN'],
+    },
+    token: {
+      tokenType: 'Bearer',
+      expiresIn: 3600,
+      accessToken: 'access-token',
+    },
+  };
+
+  const sessionStoreMock = {} as SessionStore;
 
   beforeEach(() => {
-    storageMock.getItem = vi.fn();
-    storageMock.setItem = vi.fn();
-    storageMock.removeItem = vi.fn();
+    sessionStoreMock.read = vi.fn();
+    sessionStoreMock.write = vi.fn();
+    sessionStoreMock.clear = vi.fn();
   });
 
-  it('should return unauthenticated before login', () => {
-    const { result } = renderHook(() => useAuthState(storageMock));
+  it('should return unauthenticated when no session exists', () => {
+    vi.mocked(sessionStoreMock.read).mockReturnValueOnce(null);
+
+    const { result } = renderHook(() => useAuthState(sessionStoreMock));
 
     expect(result.current.isAuthenticated).toBe(false);
   });
 
-  it('should return authenticated after login', () => {
-    vi.mocked(storageMock.getItem).mockReturnValueOnce('true');
+  it('should return authenticated when a session exists', () => {
+    vi.mocked(sessionStoreMock.read).mockReturnValueOnce(session);
 
-    const { result } = renderHook(() => useAuthState(storageMock));
+    const { result } = renderHook(() => useAuthState(sessionStoreMock));
 
     expect(result.current.isAuthenticated).toBe(true);
   });
 
   test('login should authenticate the user', () => {
-    const { result } = renderHook(() => useAuthState(storageMock));
+    vi.mocked(sessionStoreMock.read).mockReturnValueOnce(null);
+
+    const { result } = renderHook(() => useAuthState(sessionStoreMock));
 
     act(() => {
       result.current.login();
     });
 
     expect(result.current.isAuthenticated).toBe(true);
-    expect(storageMock.setItem).toHaveBeenCalledWith('isAuthenticated', 'true');
+    expect(sessionStoreMock.clear).not.toHaveBeenCalled();
   });
 
   test('logout should unauthenticate the user', () => {
-    const { result } = renderHook(() => useAuthState(storageMock));
+    vi.mocked(sessionStoreMock.read).mockReturnValueOnce(session);
+
+    const { result } = renderHook(() => useAuthState(sessionStoreMock));
 
     act(() => {
       result.current.logout();
     });
 
     expect(result.current.isAuthenticated).toBe(false);
-    expect(storageMock.removeItem).toHaveBeenCalledWith('isAuthenticated');
+    expect(sessionStoreMock.clear).toHaveBeenCalled();
   });
 });
