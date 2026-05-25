@@ -1,5 +1,6 @@
 import { AuthContext } from '@/auth/contexts/AuthContext/AuthContext.tsx';
 import { useLoginForm } from '@/auth/login/useLoginForm.ts';
+import type { LoginCredentials, LoginResult } from '@/auth/login/login.types.ts';
 import type { Auth } from '@/auth/types.ts';
 import { act, renderHook } from '@testing-library/react';
 import type { ChangeEvent, ReactNode, SyntheticEvent } from 'react';
@@ -19,25 +20,66 @@ function createWrapper(auth: Auth) {
 }
 
 describe('useLoginForm', () => {
-  it('should initialize empty form values', () => {
-    const auth: Auth = { isAuthenticated: false, login: vi.fn(), logout: vi.fn() };
+  const successResult: LoginResult = {
+    type: 'success',
+    user: {
+      id: '6a12eb9ab0b954cf6a367f92',
+      username: 'admin',
+      email: 'admin@example.com',
+      roles: ['ROLE_SUPER_ADMIN'],
+    },
+    token: {
+      tokenType: 'Bearer',
+      expiresIn: 3600,
+      accessToken: 'access-token',
+    },
+  };
 
-    const { result } = renderHook(() => useLoginForm(), { wrapper: createWrapper(auth) });
+  const validationErrorResult: LoginResult = {
+    type: 'validation-error',
+    errors: { password: ['This value should not be blank.'] },
+  };
 
-    expect(result.current.email).toBe('');
-    expect(result.current.password).toBe('');
-    expect(result.current.canSubmit).toBe(false);
-  });
+  function createLogin(result: LoginResult) {
+    return vi.fn<(credentials: LoginCredentials) => Promise<LoginResult>>().mockResolvedValue(result);
+  }
 
-  it('should update email and password values', () => {
-    const auth: Auth = { isAuthenticated: false, login: vi.fn(), logout: vi.fn() };
+  function renderLoginForm({
+    loginResult = successResult,
+    authenticate = vi.fn(),
+  }: { loginResult?: LoginResult; authenticate?: Auth['login'] } = {}) {
+    const login = createLogin(loginResult);
+    const auth: Auth = { isAuthenticated: false, login: authenticate, logout: vi.fn() };
 
-    const { result } = renderHook(() => useLoginForm(), { wrapper: createWrapper(auth) });
+    return {
+      ...renderHook(() => useLoginForm({ login }), {
+        wrapper: createWrapper(auth),
+      }),
+      authenticate,
+      login,
+    };
+  }
 
+  function fillValidCredentials(result: ReturnType<typeof renderLoginForm>['result']) {
     act(() => {
       result.current.handleEmailChange(createInputChangeEvent('admin@example.com'));
       result.current.handlePasswordChange(createInputChangeEvent('secret'));
     });
+  }
+
+  it('should initialize empty form values', () => {
+    const { result } = renderLoginForm();
+
+    expect(result.current.email).toBe('');
+    expect(result.current.password).toBe('');
+    expect(result.current.canSubmit).toBe(false);
+    expect(result.current.isSubmitting).toBe(false);
+  });
+
+  it('should update email and password values', () => {
+    const { result } = renderLoginForm();
+
+    fillValidCredentials(result);
 
     expect(result.current.email).toBe('admin@example.com');
     expect(result.current.password).toBe('secret');
@@ -45,10 +87,7 @@ describe('useLoginForm', () => {
   });
 
   it('should not login when submitted with invalid values', () => {
-    const login = vi.fn();
-    const auth: Auth = { isAuthenticated: false, login, logout: vi.fn() };
-
-    const { result } = renderHook(() => useLoginForm(), { wrapper: createWrapper(auth) });
+    const { result, login, authenticate } = renderLoginForm();
     const event = createSubmitEvent();
 
     act(() => {
@@ -57,25 +96,37 @@ describe('useLoginForm', () => {
 
     expect(event.preventDefault).toHaveBeenCalled();
     expect(login).not.toHaveBeenCalled();
+    expect(authenticate).not.toHaveBeenCalled();
   });
 
-  it('should login when submitted with valid values', () => {
-    const login = vi.fn();
-    const auth: Auth = { isAuthenticated: false, login, logout: vi.fn() };
-
-    const { result } = renderHook(() => useLoginForm(), { wrapper: createWrapper(auth) });
+  it('should submit credentials and authenticate when login succeeds', async () => {
+    const { result, login, authenticate } = renderLoginForm();
     const event = createSubmitEvent();
 
-    act(() => {
-      result.current.handleEmailChange(createInputChangeEvent('admin@example.com'));
-      result.current.handlePasswordChange(createInputChangeEvent('secret'));
-    });
+    fillValidCredentials(result);
 
-    act(() => {
-      result.current.handleSubmit(event);
+    await act(async () => {
+      await result.current.handleSubmit(event);
     });
 
     expect(event.preventDefault).toHaveBeenCalled();
-    expect(login).toHaveBeenCalledTimes(1);
+    expect(login).toHaveBeenCalledWith({ email: 'admin@example.com', password: 'secret' });
+    expect(authenticate).toHaveBeenCalledTimes(1);
+    expect(result.current.isSubmitting).toBe(false);
+  });
+
+  it('should not authenticate when login fails', async () => {
+    const { result, login, authenticate } = renderLoginForm({ loginResult: validationErrorResult });
+    const event = createSubmitEvent();
+
+    fillValidCredentials(result);
+
+    await act(async () => {
+      await result.current.handleSubmit(event);
+    });
+
+    expect(login).toHaveBeenCalledWith({ email: 'admin@example.com', password: 'secret' });
+    expect(authenticate).not.toHaveBeenCalled();
+    expect(result.current.isSubmitting).toBe(false);
   });
 });
