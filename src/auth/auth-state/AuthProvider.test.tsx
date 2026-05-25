@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/auth/contexts/AuthProvider/AuthProvider.tsx';
+import { AuthProvider } from '@/auth/auth-state/AuthProvider.tsx';
 import { render, screen } from '@testing-library/react';
 
 describe('AuthProvider', () => {

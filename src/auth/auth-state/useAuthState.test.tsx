@@ -1,4 +1,4 @@
-import { useAuthState } from '@/auth/contexts/AuthProvider/useAuthState.tsx';
+import { useAuthState } from '@/auth/auth-state/useAuthState.tsx';
 import type { Session } from '@/auth/session/session.types.ts';
 import type { SessionStore } from '@/auth/session/sessionStore.types.ts';
 import { act, renderHook } from '@testing-library/react';
@@ -42,13 +42,13 @@ describe('use auth state hook', () => {
     expect(result.current.isAuthenticated).toBe(true);
   });
 
-  test('login should authenticate the user', () => {
+  test('authenticate should authenticate the user', () => {
     vi.mocked(sessionStoreMock.read).mockReturnValueOnce(null);
 
     const { result } = renderHook(() => useAuthState(sessionStoreMock));
 
     act(() => {
-      result.current.login();
+      result.current.authenticate();
     });
 
     expect(result.current.isAuthenticated).toBe(true);

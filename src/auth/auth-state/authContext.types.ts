@@ -1,7 +1,7 @@
 export interface Auth {
   isAuthenticated: boolean;
-  login: () => void;
+  authenticate: () => void;
   logout: () => void;
 }
 
-export type AuthContext = () => Auth;
+export type UseAuth = () => Auth;

@@ -1,6 +1,6 @@
-import { AuthContext } from '@/auth/contexts/AuthContext/AuthContext.tsx';
-import { useAuth } from '@/auth/hooks/useAuth.ts';
-import type { Auth } from '@/auth/contexts/AuthContext/authContext.types.ts';
+import { AuthContext } from '@/auth/auth-state/AuthContext.tsx';
+import type { Auth } from '@/auth/auth-state/authContext.types.ts';
+import { useAuth } from '@/auth/auth-state/useAuth.ts';
 import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { expect } from 'vitest';

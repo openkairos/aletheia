@@ -1,5 +1,5 @@
-import { AuthContext } from '@/auth/contexts/AuthContext/AuthContext.tsx';
-import type { Auth } from '@/auth/contexts/AuthContext/authContext.types.ts';
+import { AuthContext } from '@/auth/auth-state/AuthContext.tsx';
+import type { Auth } from '@/auth/auth-state/authContext.types.ts';
 import { useLoginForm } from '@/auth/login/useLoginForm.ts';
 import type { LoginCredentials, LoginResult } from '@/auth/login/login.types.ts';
 import { act, renderHook } from '@testing-library/react';
@@ -48,9 +48,9 @@ describe('useLoginForm', () => {
     loginResult = successResult,
     authenticate = vi.fn(),
     navigate = vi.fn(),
-  }: { loginResult?: LoginResult; authenticate?: Auth['login']; navigate?: (to: string) => void } = {}) {
+  }: { loginResult?: LoginResult; authenticate?: Auth['authenticate']; navigate?: (to: string) => void } = {}) {
     const login = createLogin(loginResult);
-    const auth: Auth = { isAuthenticated: false, login: authenticate, logout: vi.fn() };
+    const auth: Auth = { isAuthenticated: false, authenticate, logout: vi.fn() };
 
     return {
       ...renderHook(() => useLoginForm({ login, navigate }), {

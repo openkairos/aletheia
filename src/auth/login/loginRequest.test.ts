@@ -1,4 +1,4 @@
-import { createLoginRequest } from '@/auth/api/loginRequest.ts';
+import { createLoginRequest } from '@/auth/login/loginRequest.ts';
 import type { LoginCredentials } from '@/auth/login/login.types.ts';
 import { API_BASE_PATH } from '@/config/api.ts';
 

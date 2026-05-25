@@ -1,6 +1,6 @@
-import { createLoginRequest } from '@/auth/api/loginRequest.ts';
-import { useAuth } from '@/auth/hooks/useAuth.ts';
+import { useAuth } from '@/auth/auth-state/useAuth.ts';
 import { createLogin } from '@/auth/login/login.ts';
+import { createLoginRequest } from '@/auth/login/loginRequest.ts';
 import type { LoginCredentials, LoginResult } from '@/auth/login/login.types.ts';
 import { createLocalStorageSessionStore } from '@/auth/session/localStorageSessionStore.ts';
 import { API_BASE_PATH } from '@/config/api.ts';
@@ -23,9 +23,8 @@ const createDefaultLogin = () => {
 
 export function useLoginForm(dependencies: UseLoginFormDependencies = {}) {
   const [loginAction] = useState(() => dependencies.login ?? createDefaultLogin());
-  const routerNavigate = useNavigate();
-  const navigate = dependencies.navigate ?? routerNavigate;
-  const { login: authenticate } = useAuth();
+  const navigate = dependencies.navigate ?? useNavigate();
+  const { authenticate } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -1,6 +1,6 @@
 import { createLocalStorageSessionStore } from '@/auth/session/localStorageSessionStore.ts';
 import type { SessionStore } from '@/auth/session/sessionStore.types.ts';
-import type { Auth } from '@/auth/contexts/AuthContext/authContext.types.ts';
+import type { Auth } from '@/auth/auth-state/authContext.types.ts';
 import { useCallback, useState } from 'react';
 
 export function useAuthState(sessionStore: SessionStore = createLocalStorageSessionStore(localStorage)): Auth {
@@ -8,7 +8,7 @@ export function useAuthState(sessionStore: SessionStore = createLocalStorageSess
     return sessionStore.read() !== null;
   });
 
-  const login = useCallback(() => {
+  const authenticate = useCallback(() => {
     setIsAuthenticated(true);
   }, []);
 
@@ -17,5 +17,5 @@ export function useAuthState(sessionStore: SessionStore = createLocalStorageSess
     sessionStore.clear();
   }, [sessionStore]);
 
-  return { isAuthenticated, login, logout };
+  return { isAuthenticated, authenticate, logout };
 }
