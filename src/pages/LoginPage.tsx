@@ -1,6 +1,10 @@
-import { Button, Link, Logo } from '@/components';
+import { useLoginForm } from '@/auth';
+import { Button, Link, Logo, TextInput } from '@/components';
 
 export function LoginPage() {
+  const { email, password, canSubmit, isSubmitting, handleEmailChange, handlePasswordChange, handleSubmit } =
+    useLoginForm();
+
   return (
     <div className='relative overflow-hidden h-screen'>
       <div className='grid grid-cols-12 gap-3 h-screen bg-white'>
@@ -12,8 +16,32 @@ export function LoginPage() {
               </Link>
               <h3 className='text-2xl font-bold my-3 mt-5'>Sign In</h3>
               <p className='text-sm font-medium'>Aletheia</p>
-              <form className='mt-6'>
-                <Button type='button'>Sign In</Button>
+              <form className='mt-8 space-y-5' onSubmit={handleSubmit}>
+                <TextInput
+                  label='Email'
+                  name='email'
+                  type='email'
+                  autoComplete='email'
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+
+                <TextInput
+                  label='Password'
+                  name='password'
+                  type='password'
+                  autoComplete='current-password'
+                  value={password}
+                  onChange={handlePasswordChange}
+                />
+
+                <div className='flex justify-end'>
+                  <Link to='/auth/forgot-password'>Forgot Password?</Link>
+                </div>
+
+                <Button type='submit' disabled={!canSubmit}>
+                  {isSubmitting ? 'Signing In...' : 'Sign In'}
+                </Button>
               </form>
             </div>
           </div>

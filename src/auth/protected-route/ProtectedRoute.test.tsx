@@ -1,5 +1,5 @@
-import type { AuthContext } from '@/auth';
-import { ProtectedRoute } from '@/auth/ProtectedRoute/ProtectedRoute.tsx';
+import type { UseAuth } from '@/auth/auth-state/authContext.types.ts';
+import { ProtectedRoute } from './ProtectedRoute.tsx';
 import { render, screen } from '@testing-library/react';
 import { Navigate } from 'react-router';
 
@@ -8,7 +8,7 @@ describe('Protected route component', () => {
     const useAuthMock = () => ({ isAuthenticated: true });
 
     render(
-      <ProtectedRoute useAuth={useAuthMock as unknown as AuthContext}>
+      <ProtectedRoute useAuth={useAuthMock as unknown as UseAuth}>
         <h1>Test</h1>
       </ProtectedRoute>,
     );
@@ -25,10 +25,7 @@ describe('Protected route component', () => {
     const useAuthMock = () => ({ isAuthenticated: false });
 
     render(
-      <ProtectedRoute
-        Navigate={NavigateMock as unknown as typeof Navigate}
-        useAuth={useAuthMock as unknown as AuthContext}
-      >
+      <ProtectedRoute Navigate={NavigateMock as unknown as typeof Navigate} useAuth={useAuthMock as unknown as UseAuth}>
         <h1>Test</h1>
       </ProtectedRoute>,
     );
