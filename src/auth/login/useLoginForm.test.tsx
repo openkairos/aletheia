@@ -47,16 +47,18 @@ describe('useLoginForm', () => {
   function renderLoginForm({
     loginResult = successResult,
     authenticate = vi.fn(),
-  }: { loginResult?: LoginResult; authenticate?: Auth['login'] } = {}) {
+    navigate = vi.fn(),
+  }: { loginResult?: LoginResult; authenticate?: Auth['login']; navigate?: (to: string) => void } = {}) {
     const login = createLogin(loginResult);
     const auth: Auth = { isAuthenticated: false, login: authenticate, logout: vi.fn() };
 
     return {
-      ...renderHook(() => useLoginForm({ login }), {
+      ...renderHook(() => useLoginForm({ login, navigate }), {
         wrapper: createWrapper(auth),
       }),
       authenticate,
       login,
+      navigate,
     };
   }
 
@@ -87,7 +89,7 @@ describe('useLoginForm', () => {
   });
 
   it('should not login when submitted with invalid values', () => {
-    const { result, login, authenticate } = renderLoginForm();
+    const { result, login, authenticate, navigate } = renderLoginForm();
     const event = createSubmitEvent();
 
     act(() => {
@@ -97,10 +99,11 @@ describe('useLoginForm', () => {
     expect(event.preventDefault).toHaveBeenCalled();
     expect(login).not.toHaveBeenCalled();
     expect(authenticate).not.toHaveBeenCalled();
+    expect(navigate).not.toHaveBeenCalled();
   });
 
   it('should submit credentials and authenticate when login succeeds', async () => {
-    const { result, login, authenticate } = renderLoginForm();
+    const { result, login, authenticate, navigate } = renderLoginForm();
     const event = createSubmitEvent();
 
     fillValidCredentials(result);
@@ -112,11 +115,12 @@ describe('useLoginForm', () => {
     expect(event.preventDefault).toHaveBeenCalled();
     expect(login).toHaveBeenCalledWith({ email: 'admin@example.com', password: 'secret' });
     expect(authenticate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('/');
     expect(result.current.isSubmitting).toBe(false);
   });
 
   it('should not authenticate when login fails', async () => {
-    const { result, login, authenticate } = renderLoginForm({ loginResult: validationErrorResult });
+    const { result, login, authenticate, navigate } = renderLoginForm({ loginResult: validationErrorResult });
     const event = createSubmitEvent();
 
     fillValidCredentials(result);
@@ -127,6 +131,7 @@ describe('useLoginForm', () => {
 
     expect(login).toHaveBeenCalledWith({ email: 'admin@example.com', password: 'secret' });
     expect(authenticate).not.toHaveBeenCalled();
+    expect(navigate).not.toHaveBeenCalled();
     expect(result.current.isSubmitting).toBe(false);
   });
 });

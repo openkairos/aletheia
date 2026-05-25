@@ -5,9 +5,11 @@ import type { LoginCredentials, LoginResult } from '@/auth/login/login.types.ts'
 import { createLocalStorageSessionStore } from '@/auth/session/localStorageSessionStore.ts';
 import { API_BASE_PATH } from '@/config/api.ts';
 import { type ChangeEvent, type SyntheticEvent, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 interface UseLoginFormDependencies {
   login?: (credentials: LoginCredentials) => Promise<LoginResult>;
+  navigate?: (to: string) => void;
 }
 
 const createDefaultLogin = () => {
@@ -21,6 +23,8 @@ const createDefaultLogin = () => {
 
 export function useLoginForm(dependencies: UseLoginFormDependencies = {}) {
   const [loginAction] = useState(() => dependencies.login ?? createDefaultLogin());
+  const routerNavigate = useNavigate();
+  const navigate = dependencies.navigate ?? routerNavigate;
   const { login: authenticate } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,6 +51,7 @@ export function useLoginForm(dependencies: UseLoginFormDependencies = {}) {
 
       if (result.type === 'success') {
         authenticate();
+        navigate('/');
       }
     } finally {
       setIsSubmitting(false);
