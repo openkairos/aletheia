@@ -56,7 +56,7 @@ describe('login', () => {
     { type: 'authentication-error', code: 'INVALID_CREDENTIALS', message: 'Invalid credentials' },
     { type: 'network-error', message: 'Network error' },
     { type: 'unexpected-error', message: 'Unexpected error' },
-  ])('should not save session when login returns $type', async (result) => {
+  ])('should not save session when login returns $type', async result => {
     const dependencies = createDependencies(result);
 
     await createLogin(dependencies)(credentials);
