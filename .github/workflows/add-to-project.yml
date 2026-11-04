@@ -1,0 +1,33 @@
+name: Add to Kairos project
+
+on:
+  issues:
+    types: [opened, reopened]
+  # Use the trusted base workflow for fork and Dependabot PRs.
+  # Never check out or execute pull request code in this workflow.
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions: {}
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create project access token
+        id: project-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
+        with:
+          client-id: ${{ vars.PROJECT_APP_CLIENT_ID }}
+          private-key: ${{ secrets.PROJECT_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-organization-projects: write
+          permission-issues: read
+          permission-pull-requests: read
+
+      - name: Add issue or pull request
+        uses: actions/add-to-project@c806f133a7b43b90099756977320554ea33e31ba
+        with:
+          project-url: https://github.com/orgs/openkairos/projects/1
+          github-token: ${{ steps.project-token.outputs.token }}
